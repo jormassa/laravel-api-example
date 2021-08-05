@@ -6,6 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 use Illuminate\Http\Request;
 use Validator;
 
+use App\Exceptions\CustomException;
+
 class BookStoreRequestBody extends DataTransferObject
 {
 
@@ -28,7 +30,8 @@ class BookStoreRequestBody extends DataTransferObject
         ]);
  
         if($validator->fails()){
-            return response()->json($validator->errors(), 400); 
+            // return response()->json($validator->errors(), 400); 
+            throw new CustomException(400,'Bad request');
         }
 
         return new self([
